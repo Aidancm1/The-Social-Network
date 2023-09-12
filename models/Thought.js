@@ -1,29 +1,6 @@
-const { Schema, model } = require('mongoose');
-// import user stuff 
-
-const ReactionSchema = new Schema(
-  {
-    reactionId: {
-      type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId(),
-    },
-  },
-    reactionBody, {
-      type: String,
-     required: true,
-     maxLength: 280,
-     trim: true,
-  },
-  username, {
-    type: String,
-    required: true,
-  },
-  createdAt, {
-    type: Date,
-    default: Date.now,
-    get: (createdAtTime) => dateFormat(createdAtTime),
-  }, 
-);
+const { Schema, model } = require("mongoose");
+const ReactionSchema = require("./Reaction");
+// import user stuff
 
 const ThoughtSchema = new Schema(
   {
@@ -36,26 +13,28 @@ const ThoughtSchema = new Schema(
     },
     createdAt: {
       type: Date,
-      default: Date.now(),
+      default: Date.now,
       // custom getter sounds fun
-      get: (createdAtTime) => dateFormat(createdAtTime),
+      get: (timestamp) => dateFormat(timestamp),
     },
-    reactions: [ReactionSchema]
-      // nested documents reactionSchema time for research
-    },
+    reactions: [ReactionSchema],
+    // nested documents reactionSchema time for research
     username: {
-
       type: String,
       required: true,
     },
+  },
   {
     toJSON: {
-      getters: true
+      getters: true,
     },
-    id: false
+    id: false,
   }
 );
+ThoughtSchema.virtual('reactions').get(function () {
+  return this.reactions.length;
+});
 // change some stuff to make sense
-const Thought = model('thought', ThoughtSchema);
+const Thought = model("Thought", ThoughtSchema);
 
 module.exports = Thought;

@@ -1,4 +1,4 @@
-const { Schema, Types } = require('mongoose');
+const { Schema, model } = require('mongoose');
 // import thoughts here maybe
 
 const UserSchema = new Schema(
@@ -21,7 +21,7 @@ const UserSchema = new Schema(
         message: "Email verification failed!!"
       }
     },
-    Thoughts: [
+    thoughts: [
       {
         type: Schema.Types.ObjectId,
         ref: 'Thought',
