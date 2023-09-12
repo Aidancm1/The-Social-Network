@@ -1,7 +1,7 @@
 const { Schema, Types } = require('mongoose');
 // import thoughts here maybe
 
-const assignmentSchema = new Schema(
+const UserSchema = new Schema(
   {
     username: {
       type: String,
@@ -16,12 +16,23 @@ const assignmentSchema = new Schema(
       unique: true,
       required: true,
       // Look at some stuff from wk 18
+      validate: {
+        validator: () => Promise.resolve(false),
+        message: "Email verification failed!!"
+      }
     },
-    score: {
-      type: Number,
-      required: true,
-      default: () => Math.floor(Math.random() * (100 - 70 + 1) + 70),
-    },
+    Thoughts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Thought',
+      },
+  ],
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
     createdAt: {
       type: Date,
       default: Date.now,
@@ -30,9 +41,16 @@ const assignmentSchema = new Schema(
   {
     toJSON: {
       getters: true,
+      virtuals: true,
     },
     id: false,
   }
 );
 
-module.exports = assignmentSchema;
+UserSchema.virtual('friendcount').get(function () {
+  return this.friends.length;
+});
+
+const User = model('User', UserSchema);
+
+module.exports = User;

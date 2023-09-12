@@ -1,5 +1,3 @@
-// needs to be updated to see stuff
-
 
 const express = require('express');
 const db = require('./config/connection');
