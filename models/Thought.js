@@ -40,18 +40,14 @@ const ThoughtSchema = new Schema(
       // custom getter sounds fun
       get: (createdAtTime) => dateFormat(createdAtTime),
     },
-    reactions: {
+    reactions: [ReactionSchema]
       // nested documents reactionSchema time for research
-      type: Date,
-      default: Date.now(),
     },
-    username:
-      {
-        type: String,
-        required: true,
-      },
-  },
+    username: {
 
+      type: String,
+      required: true,
+    },
   {
     toJSON: {
       getters: true
