@@ -1,6 +1,4 @@
-// Edit everything in this folder, check endpoints towards the end.
-
-
+// Edit everything in this folder, check endpoints towards the end
 const router = require('express').Router();
 const {
   getUsers,
@@ -9,7 +7,7 @@ const {
   updateUser,
   deleteUser,
   addFriend,
-  deleteFriend,
+  // deleteFriend,
 } = require('../../controllers/userController.js');
 
 // /api/courses
@@ -24,6 +22,6 @@ router
 
   router.route('/:userId/friends/:friendId')
   .post(addFriend)
-  .delete(deleteFriend);
+  // .delete(deleteFriend);
 
 module.exports = router;
