@@ -16,10 +16,10 @@ const UserSchema = new Schema(
       unique: true,
       required: true,
       // Look at some stuff from wk 18
-      validate: {
-        validator: () => Promise.resolve(false),
-        message: "Email verification failed!!"
-      }
+      // validate: {
+      //   validator: () => Promise.resolve(false),
+      //   message: "Email verification failed!!"
+      // }
     },
     thoughts: [
       {
